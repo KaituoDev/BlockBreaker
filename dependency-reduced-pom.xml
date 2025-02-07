@@ -43,6 +43,33 @@
           </relocations>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>upload-to-sftp</id>
+            <phase>install</phase>
+            <goals>
+              <goal>exec</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <executable>scp</executable>
+          <arguments>
+            <argument>-o</argument>
+            <argument>StrictHostKeyChecking=no</argument>
+            <argument>-P</argument>
+            <argument>22000</argument>
+            <argument>-i</argument>
+            <argument>${user.home}\.ssh\id</argument>
+            <argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
+            <argument>root@mc.kaituo.fun:/</argument>
+          </arguments>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -71,6 +98,12 @@
       <scope>provided</scope>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>kaituo-repo</id>
+      <url>https://maven.kaituo.fun/maven-snapshots</url>
+    </repository>
+  </distributionManagement>
   <properties>
     <java.version>21</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

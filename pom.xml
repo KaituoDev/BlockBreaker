@@ -16,6 +16,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <repository>
+            <id>kaituo-repo</id>
+            <url>https://maven.kaituo.fun/maven-snapshots</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
@@ -48,6 +55,33 @@
                             <shadedPattern>fun.kaituo.kaituofun.nbtapi</shadedPattern>
                         </relocation>
                     </relocations>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>upload-to-sftp</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>scp</executable>
+                    <arguments>
+                        <argument>-o</argument>
+                        <argument>StrictHostKeyChecking=no</argument>
+                        <argument>-P</argument>
+                        <argument>22000</argument>
+                        <argument>-i</argument>
+                        <argument>${user.home}\.ssh\id</argument>
+                        <argument>${project.build.directory}/${project.artifactId}-${project.version}.jar</argument>
+                        <argument>root@mc.kaituo.fun:/</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
