@@ -1,0 +1,10 @@
+name: BlockBreaker
+version: '1.0'
+main: fun.kaituo.blockBreaker.BlockBreaker
+api-version: '1.21'
+authors: [ APairOfMoons ]
+description: Define tools for destroying blocks fastly
+
+commands:
+  getbreaker:
+    description: copy enchantments
