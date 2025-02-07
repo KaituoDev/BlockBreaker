@@ -63,10 +63,7 @@ public class BlockBreakingListener implements Listener {
         if (!pie.getPlayer().getGameMode().equals(GameMode.SURVIVAL)) {
             return;
         }
-        ItemStack tool = pie.getItem();
-        if (tool == null) {
-            return;
-        }
+        ItemStack tool = pie.getPlayer().getInventory().getItemInMainHand();
         if(tool.getEnchantments().isEmpty()) {
             return;
         }
@@ -87,18 +84,20 @@ public class BlockBreakingListener implements Listener {
                         block.getWorld().spawnParticle(Particle.BLOCK, visual, 100, Material.GLASS.createBlockData());
                         block.getWorld().dropItemNaturally(visual, new ItemStack(m, 1));
                         giveNewTool(tool, pie.getPlayer());
-                        return;
+                        break;
                     }
                 }
-            case PRISMARINE_SHARD:
+                break;
+            case Material.PRISMARINE_SHARD:
                 if (block.getBlockData().getMaterial().equals(Material.BEDROCK)) {
                     pie.setCancelled(true);
                     block.setType(Material.AIR);
                     block.getWorld().playSound(aim, Sound.BLOCK_DEEPSLATE_TILES_BREAK, 1.0f, 1.0f);
                     block.getWorld().spawnParticle(Particle.BLOCK, visual, 100, Material.BEDROCK.createBlockData());
                     giveNewTool(tool, pie.getPlayer());
-                    return;
+                    break;
                 }
+                break;
         }
     }
 
@@ -140,7 +139,7 @@ public class BlockBreakingListener implements Listener {
 
         NBT.modify(tool, nbt -> {
             nbt.setInteger("Durability", Durability - 1);
-            nbt.setInteger("BaseDurability", BasicDurability);
+            nbt.setInteger("BasicDurability", BasicDurability);
         });
     }
 }

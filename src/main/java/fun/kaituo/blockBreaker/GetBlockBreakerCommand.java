@@ -1,5 +1,6 @@
 package fun.kaituo.blockBreaker;
 
+import de.tr7zw.changeme.nbtapi.NBT;
 import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -64,6 +65,9 @@ public class GetBlockBreakerCommand implements CommandExecutor {
                     nbtItem.setInteger("Durability", durability);
                     nbtItem.setInteger("BasicDurability", durability);
                     finalItem = nbtItem.getItem();
+                    NBT.modifyComponents(finalItem, nbt -> {
+                        nbt.setInteger("minecraft:max_stack_size", 1);
+                    });
                     player.getInventory().addItem(finalItem);
                     return false;
 
@@ -71,7 +75,7 @@ public class GetBlockBreakerCommand implements CommandExecutor {
                     item = new ItemStack(Material.FLINT);
                     meta = item.getItemMeta();
 
-                    meta.setDisplayName("§f钻石刀");
+                    meta.setDisplayName("§f玻璃刀");
                     meta.setLore(Arrays.asList(
                             "§f耐久值：" + durability,
                             "",
@@ -85,6 +89,9 @@ public class GetBlockBreakerCommand implements CommandExecutor {
                     nbtItem.setInteger("Durability", durability);
                     nbtItem.setInteger("BasicDurability", durability);
                     finalItem = nbtItem.getItem();
+                    NBT.modifyComponents(finalItem, nbt -> {
+                        nbt.setInteger("minecraft:max_stack_size", 1);
+                    });
                     player.getInventory().addItem(finalItem);
                     return false;
             }
