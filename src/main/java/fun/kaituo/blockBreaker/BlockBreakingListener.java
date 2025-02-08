@@ -81,8 +81,8 @@ public class BlockBreakingListener implements Listener {
                         pie.setCancelled(true);
                         block.setType(Material.AIR);
                         block.getWorld().playSound(aim, Sound.BLOCK_GLASS_BREAK, 1.0f, 1.0f);
-                        block.getWorld().spawnParticle(Particle.BLOCK, visual, 100, Material.GLASS.createBlockData());
-                        block.getWorld().dropItemNaturally(visual, new ItemStack(m, 1));
+                        block.getWorld().spawnParticle(Particle.BLOCK, visual, 100, m.createBlockData());
+                        block.getWorld().dropItemNaturally(aim, new ItemStack(m, 1));
                         if (!tool.getItemMeta().isUnbreakable()) {
                             giveNewTool(tool, pie.getPlayer());
                         }
@@ -139,7 +139,10 @@ public class BlockBreakingListener implements Listener {
             lore = new ArrayList<>();
             lore.addFirst("");
         }
-        lore.set(0, DurabilityStr.toString());
+        if (lore.size() == 1) {
+            lore.addFirst("");
+        }
+        lore.set(1, DurabilityStr.toString());
         tool.setLore(lore);
 
         NBT.modify(tool, nbt -> {

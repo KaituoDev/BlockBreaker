@@ -68,6 +68,7 @@ public class GetBlockBreakerCommand implements CommandExecutor {
                         meta.setDisplayName("§d基岩钻头");
                     }
                     meta.setLore(Arrays.asList(
+                            "",
                             "§f耐久值：" + Durability,
                             "",
                             "§6§o由矮人族锻造的坚固钻头，能破坏世界上最难以破坏的岩石：基岩！"
@@ -99,6 +100,7 @@ public class GetBlockBreakerCommand implements CommandExecutor {
                         meta.setDisplayName("§d玻璃刀");
                     }
                     meta.setLore(Arrays.asList(
+                            "",
                             "§f耐久值：" + Durability,
                             "",
                             "§b§o由工业级金刚石磨制而成，可用于快速切割玻璃！"
