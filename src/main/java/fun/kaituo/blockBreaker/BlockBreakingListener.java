@@ -83,7 +83,9 @@ public class BlockBreakingListener implements Listener {
                         block.getWorld().playSound(aim, Sound.BLOCK_GLASS_BREAK, 1.0f, 1.0f);
                         block.getWorld().spawnParticle(Particle.BLOCK, visual, 100, Material.GLASS.createBlockData());
                         block.getWorld().dropItemNaturally(visual, new ItemStack(m, 1));
-                        giveNewTool(tool, pie.getPlayer());
+                        if (!tool.getItemMeta().isUnbreakable()) {
+                            giveNewTool(tool, pie.getPlayer());
+                        }
                         break;
                     }
                 }
@@ -94,6 +96,9 @@ public class BlockBreakingListener implements Listener {
                     block.setType(Material.AIR);
                     block.getWorld().playSound(aim, Sound.BLOCK_DEEPSLATE_TILES_BREAK, 1.0f, 1.0f);
                     block.getWorld().spawnParticle(Particle.BLOCK, visual, 100, Material.BEDROCK.createBlockData());
+                    if (!tool.getItemMeta().isUnbreakable()) {
+                        giveNewTool(tool, pie.getPlayer());
+                    }
                     giveNewTool(tool, pie.getPlayer());
                     break;
                 }
