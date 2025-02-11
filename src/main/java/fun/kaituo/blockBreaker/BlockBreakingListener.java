@@ -99,7 +99,6 @@ public class BlockBreakingListener implements Listener {
                     if (!tool.getItemMeta().isUnbreakable()) {
                         giveNewTool(tool, pie.getPlayer());
                     }
-                    giveNewTool(tool, pie.getPlayer());
                     break;
                 }
                 break;
